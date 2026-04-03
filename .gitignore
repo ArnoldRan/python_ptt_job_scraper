@@ -1,0 +1,13 @@
+# Python 暫存檔
+__pycache__/
+*.py[cod]
+
+# 虛擬環境
+venv/
+env/
+
+# Mac 系統檔
+.DS_Store
+
+# 資料檔 (如果你已經產生了 CSV，通常建議不傳，除非是範例)
+*.csv

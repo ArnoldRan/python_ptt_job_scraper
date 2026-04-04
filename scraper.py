@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime,timedelta
+import pandas as pd
+
 
 
 def get_post_within_days(board,days):
@@ -63,6 +65,23 @@ def get_post_within_days(board,days):
     return all_matched_posts
 
 
+def save_to_csv(posts_list,filename):
+    if not posts_list:
+        print("沒有資料可以儲存!")
+        return
+    
+    # 將List 轉換成 DataFrame
+    df = pd.DataFrame(posts_list)
+
+    # 進行排序
+    df.sort_values(by='date',ascending=False)
+
+    # 存成CSV
+    # index=False 代表不要存 Pandas 自動產生的數字編號
+    # encoding='utf-8-sig' 是為了讓 Excel 開啟時不會亂碼 (對 Mac/Windows 友善)
+    df.to_csv(filename,index = False,encoding='utf-8-sig')
+    print(f"成功儲存{len(df)}筆資料至{filename}")
+
 
 
 # --- Main Code---
@@ -70,7 +89,13 @@ if __name__ == "__main__":
 
     # 抓取最近n天的文章
     days = 3
-    results = get_post_within_days("NBA",days)
+    board = "NBA"
+
+    results = get_post_within_days(board,days)
     for r in results:
         print(f"[{r['date']}] {r['title']}")
+    
+    # 儲存至CSV
+    #results_filte = [p for p in results if "[BOX ]" in p['title']]# filter
+    save_to_csv(results,"ppt_csv.csv")
 

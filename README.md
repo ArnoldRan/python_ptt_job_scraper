@@ -13,3 +13,6 @@
 ## feature/LineBot
 - [x] LINE自動推播，LINE Notify停用以及Developers Console流程改變，最後使用Messaging API
 - [x] 使用python-dotenv 強化API Key的安全性管理
+
+## feautre/refactor_OOP
+- [x] 將程式重構成簡易OOP架構

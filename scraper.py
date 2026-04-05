@@ -2,7 +2,26 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime,timedelta
 import pandas as pd
+import os
+from dotenv import load_dotenv
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
 
+#載入設定
+load_dotenv()
+
+def send_line_message(message):
+    token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
+    user_id = os.getenv("LINE_USER_ID")
+    print(token)
+    print(user_id)
+
+    try:
+        line_bot_api = LineBotApi(token)
+        line_bot_api.push_message(user_id,TextSendMessage(text=message))
+        print("LINE 訊息已成功推播")
+    except Exception as e:
+        print(f"發送失敗:{e}")
 
 
 def get_post_within_days(board,days):
@@ -86,16 +105,36 @@ def save_to_csv(posts_list,filename):
 
 # --- Main Code---
 if __name__ == "__main__":
-
-    # 抓取最近n天的文章
+    #---設定---
+    keywords=["Lakers","Warriors"]
     days = 3
     board = "NBA"
 
+    # 1.抓取最近n天的文章
     results = get_post_within_days(board,days)
     for r in results:
         print(f"[{r['date']}] {r['title']}")
-    
-    # 儲存至CSV
-    #results_filte = [p for p in results if "[BOX ]" in p['title']]# filter
-    save_to_csv(results,"ppt_csv.csv")
 
+    # 2.篩選關鍵字
+    matched_posts = []
+    for post in results:
+        if any(kw.lower() in post['title'].lower() for kw in keywords):
+            print(post)
+            matched_posts.append(post)
+
+    # 3.儲存至CSV
+    #results_filte = [p for p in results if "[BOX ]" in p['title']]# filter
+    if matched_posts:
+        save_to_csv(matched_posts,"ppt_csv.csv")
+
+    # 4.LINE推播
+    
+    if matched_posts:
+        notification_msg = f"發現{len(matched_posts)} 筆{board}板資料"
+        for p in matched_posts:
+            notification_msg += f"\n- [{p['date']}] [{p['title']} [{p['link']}]"
+            send_line_message(notification_msg)
+    
+    else:
+        send_line_message("今天沒有符合文章")
+    

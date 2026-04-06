@@ -1,15 +1,15 @@
-# PTT Job Alert Bot 🚀
+# PTT Alert Bot 
 
-這是一個基於 Python 開發的自動化求職追蹤工具。它能自動爬取 PTT 特定看板（如 Tech_Job, Soft_Job）的最新職缺，並透過 LINE Messaging API 將符合關鍵字的資訊即時推送到你的手機。
+這是一個基於 Python 開發的自動化求職追蹤工具。它能自動爬取 PTT 特定看板（如 Tech_Job, Soft_Job）的最新文章，並透過 LINE Messaging API 將符合關鍵字的資訊即時推送到手機。
 
 ## 專案特色
 
 - **自動化翻頁**：具備智慧翻頁邏輯，可自定義追蹤過去 N 天內的所有文章。
 - **精準過濾**：自動識別並過濾 PTT 置頂公告，避免無效資訊干擾。
 - **日期校正**：針對 PTT 缺乏年份的日期格式，實作了跨年日期修正邏輯。
-- **物件導向設計 (OOP)**：採用類別封裝，結構清晰，易於擴充其他平台（如 Dcard, 104）。
-- **資安防護**：使用環境變數（`.env`）管理 API 金鑰，符合業界開發規範。
-- **即時通知**：整合 LINE Messaging API，職缺資訊不漏接。
+- **物件導向設計 (OOP)**：採用類別封裝，結構清晰。
+- **資安防護**：使用環境變數（`.env`）管理 API 金鑰。
+- **即時通知**：整合 LINE Messaging API，資訊即時推送到手機。
 
 ##  函式庫
 
@@ -36,8 +36,8 @@
 4. **設定環境變數** 
     建立一個 .env 檔案並填入你的 LINE API 資訊：
     ```plaintext
-        LINE_CHANNEL_ACCESS_TOKEN=你的代碼
-        LINE_USER_ID=你的用戶ID
+    LINE_CHANNEL_ACCESS_TOKEN=你的代碼
+    LINE_USER_ID=你的用戶ID
 
 6. **執行程式**
    ```bash

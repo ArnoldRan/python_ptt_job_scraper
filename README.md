@@ -27,17 +27,20 @@
    ```bash
    git clone [https://github.com/ArnoldRan/python_ptt_job_scraper.git](https://github.com/ArnoldRan/python_ptt_job_scraper.git)
 
-2. **建立虛擬環境並安裝套件** 
+2. **建立虛擬環境並安裝套件**
+   ```bash
     python3 -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
 
-3. **設定環境變數** 
+4. **設定環境變數** 
     建立一個 .env 檔案並填入你的 LINE API 資訊：
+    ```plaintext
         LINE_CHANNEL_ACCESS_TOKEN=你的代碼
         LINE_USER_ID=你的用戶ID
 
-4. **執行程式**
+6. **執行程式**
+   ```bash
     python3 main.py
 
 ## 專案結構

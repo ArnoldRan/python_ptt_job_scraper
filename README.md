@@ -47,7 +47,12 @@
 
 .
 ├── main.py              # 程式主邏輯 (包含 Scraper 與 Notifier 類別)
+
 ├── .env                 # 敏感資訊 (不推送到 Git)
+
 ├── .gitignore           # 排除不需要的文件
+
 ├── requirements.txt     # 套件清單
+
 └── README.md            # 專案說明文件
+
